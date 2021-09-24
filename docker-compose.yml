@@ -14,12 +14,25 @@ services:
       - woni_media:/data/media/
 
   django:
-    image: woni:3
+    image: woni:4
     networks:
       - gis_3ban_network
     volumes:
       - woni_static:/home/P_D/staticfiles/
       - woni_media:/home/P_D/media/
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - gis_3ban_network
+    volumes:
+      - gis_mariadb:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: password1234
+      MARIADB_DATABASE: django
+      MARIADB_USER: django
+      MARIADB_PASSWORD: password1234
+
 
 networks:
   gis_3ban_network:
@@ -27,3 +40,4 @@ networks:
 volumes:
   woni_static:
   woni_media:
+  gis_mariadb:
