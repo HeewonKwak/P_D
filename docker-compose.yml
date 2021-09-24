@@ -1,7 +1,29 @@
 version: "3.7"
 
 services:
-  django:
-    image: woni:1
+
+  nginx:
+    image: nginx:1.19.5
     ports:
-    - 8080:8000
+     - 80:80
+    networks:
+      - gis_3ban_network
+    volumes:
+      - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf
+      - woni_static:/data/static/
+      - woni_media:/data/media/
+
+  django:
+    image: woni:3
+    networks:
+      - gis_3ban_network
+    volumes:
+      - woni_static:/home/P_D/staticfiles/
+      - woni_media:/home/P_D/media/
+
+networks:
+  gis_3ban_network:
+
+volumes:
+  woni_static:
+  woni_media:
