@@ -14,7 +14,7 @@ services:
       - woni_media:/data/media/
 
   django:
-    image: woni:4
+    image: woni:5
     networks:
       - gis_3ban_network
     volumes:
